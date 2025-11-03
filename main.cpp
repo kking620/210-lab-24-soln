@@ -17,6 +17,7 @@ void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
 void reverse_goat(list<Goat> &trip);
 void inc_age(list<Goat> &trip);
+void remove_dupes(list<Goat> &trip);
 void display_trip(list<Goat> trip);
 void sort_trip(list<Goat> &trip);
 int main_menu();
@@ -52,7 +53,7 @@ int main() {
     
     // Goat Manager 3001 Engine
     int sel = main_menu();
-    while (sel != 7) {
+    while (sel != 8) {
         switch (sel) {
             case 1:
                 cout << "Adding a goat.\n";
@@ -75,10 +76,14 @@ int main() {
                 inc_age(trip);
                 break;
             case 6:    
+                cout << "Removing duplicates.\n";
+                remove_dupes(trip);
+                break;
+            case 7:    
                 cout << "Sorting the trip.\n";
                 sort_trip(trip);
                 break;
-            case 7:    
+            case 8:    
                 cout << "Quitting.\n";
                 break;
             default:
@@ -99,16 +104,22 @@ int main_menu() {
     cout << "[3] List goats\n";
     cout << "[4] Reverse order of goats\n";
     cout << "[5] Increase the age of the goats by 1\n";
-    cout << "[6] Sort the trip\n";
-    cout << "[7] Quit\n";
+    cout << "[6] Remove duplicates (must be sorted first)\n";
+    cout << "[7] Sort the trip\n";
+    cout << "[8] Quit\n";
     cout << "Choice --> ";
     int choice;
     cin >> choice;
-    while (choice < 1 || choice > 7) {
+    while (choice < 1 || choice > 8) {
         cout << "Invalid, again --> ";
         cin >> choice;
     }
     return choice;
+}
+
+void remove_dupes(list<Goat> &trip) {
+    trip.erase(unique(trip.begin(), trip.end(), [](const Goat& a, const Goat& b) {return a.name == b.name;}), trip.end());
+    display_trip(trip);
 }
 
 void sort_trip(list<Goat> &trip) {

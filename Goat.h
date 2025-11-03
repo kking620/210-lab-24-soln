@@ -29,6 +29,7 @@ public:
     }
 
     friend void inc_age(list<Goat> &trip);
+    friend void remove_dupes(list<Goat> &trip);
 };
 
 #endif

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <list>
+#include <algorithm>
 #include "Goat.h"
 using namespace std;
 
@@ -10,6 +11,7 @@ const int SZ_NAMES = 200, SZ_COLORS = 25;
 int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
+void sort_goat(list<Goat> trip);
 void display_trip(list<Goat> trip);
 int main_menu();
 
@@ -58,6 +60,10 @@ int main() {
                 cout << "Displaying goat data.\n";
                 display_trip(trip);
                 break;
+            case 4:    
+                cout << "Sorting the goats.\n";
+                sort_goat(trip);
+                break;
             default:
                 cout << "Invalid selection.\n";
                 break;
@@ -74,15 +80,23 @@ int main_menu() {
     cout << "[1] Add a goat\n";
     cout << "[2] Delete a goat\n";
     cout << "[3] List goats\n";
-    cout << "[4] Quit\n";
+    cout << "[4] Sort goats\n"
+    cout << "[5] Quit\n";
     cout << "Choice --> ";
     int choice;
     cin >> choice;
-    while (choice < 1 || choice > 4) {
+    while (choice < 1 || choice > 5) {
         cout << "Invalid, again --> ";
         cin >> choice;
     }
     return choice;
+}
+
+void sort_goat(list<Goat> trip) {
+    sort(trip.begin(), trip.end());
+
+    cout << "After sorting our goats: \n";
+    display_trip(trip);
 }
 
 void delete_goat(list<Goat> &trip) {

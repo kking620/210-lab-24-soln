@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <list>
+#include <random>
 #include <algorithm>
 #include "Goat.h"
 using namespace std;
@@ -11,8 +12,10 @@ const int SZ_NAMES = 200, SZ_COLORS = 25;
 int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
-void sort_goat(list<Goat> trip);
+void reverse_goat(list<Goat> trip);
+void shuffle_goats(list<Goat> trip);
 void display_trip(list<Goat> trip);
+void find_goat(list<Goat> trip);
 int main_menu();
 
 int main() {
@@ -46,7 +49,7 @@ int main() {
     
     // Goat Manager 3001 Engine
     int sel = main_menu();
-    while (sel != 4) {
+    while (sel != 11) {
         switch (sel) {
             case 1:
                 cout << "Adding a goat.\n";
@@ -61,8 +64,20 @@ int main() {
                 display_trip(trip);
                 break;
             case 4:    
-                cout << "Sorting the goats.\n";
-                sort_goat(trip);
+                cout << "Reverse the order of goats.\n";
+                reverse_goat(trip);
+                break;
+            case 5:    
+                cout << "Randomize the order of goats.\n";
+                shuffle_goats(trip);
+                break;
+            case 6:    
+                cout << "Randomize the order of goats.\n";
+                shuffle_goats(trip);
+                break;
+            case 7:    
+                cout << "Finding a specific goat.\n";
+                shuffle_goats(trip);
                 break;
             default:
                 cout << "Invalid selection.\n";
@@ -80,8 +95,9 @@ int main_menu() {
     cout << "[1] Add a goat\n";
     cout << "[2] Delete a goat\n";
     cout << "[3] List goats\n";
-    cout << "[4] Sort goats\n"
-    cout << "[5] Quit\n";
+    cout << "[4] Reverse order of goats\n";
+    cout << "[5] Shuffle order of goats\n";
+    cout << "[6] Quit\n";
     cout << "Choice --> ";
     int choice;
     cin >> choice;
@@ -92,10 +108,28 @@ int main_menu() {
     return choice;
 }
 
-void sort_goat(list<Goat> trip) {
-    sort(trip.begin(), trip.end());
+void find_goat(list<Goat> trip) {
+    string n = "";
+    cout << "Which goat would you like to find? ";
+    cin >> n;
+    cin.ignore();
 
-    cout << "After sorting our goats: \n";
+    cout << "Searching for " << n << "...\n";
+
+    auto it = find_if(trip.begin(), trip.end(), [](const Goat &g){return g.name == n;})
+}
+
+void shuffle_goats(list<Goat> trip) {
+    shuffle(trip.begin(), trip.end(), default_random_engine());
+
+    cout << "After shuffling the order of our goats: \n";
+    display_trip(trip);
+}
+
+void reverse_goat(list<Goat> trip) {
+    reverse(trip.begin(), trip.end());
+
+    cout << "After reversing the order of our goats: \n";
     display_trip(trip);
 }
 
@@ -103,7 +137,7 @@ void delete_goat(list<Goat> &trip) {
     cout << "DELETE A GOAT\n";
     int index = select_goat(trip);
     auto it = trip.begin();
-    advance(it, index-1);
+    advance(it, (index - 1));
     trip.erase(it);
     cout << "Goat deleted. New trip size: " << trip.size() << endl;
 }

@@ -18,6 +18,7 @@ void add_goat(list<Goat> &trip, string [], string []);
 void reverse_goat(list<Goat> &trip);
 void inc_age(list<Goat> &trip);
 void remove_dupes(list<Goat> &trip);
+void shuffle_goats(list<Goat> &trip);
 void display_trip(list<Goat> trip);
 void sort_trip(list<Goat> &trip);
 int main_menu();
@@ -53,7 +54,7 @@ int main() {
     
     // Goat Manager 3001 Engine
     int sel = main_menu();
-    while (sel != 8) {
+    while (sel != 9) {
         switch (sel) {
             case 1:
                 cout << "Adding a goat.\n";
@@ -84,6 +85,10 @@ int main() {
                 sort_trip(trip);
                 break;
             case 8:    
+                cout << "Checking age of goats.\n";
+                check_max_age(trip);
+                break;
+            case 9:    
                 cout << "Quitting.\n";
                 break;
             default:
@@ -106,15 +111,21 @@ int main_menu() {
     cout << "[5] Increase the age of the goats by 1\n";
     cout << "[6] Remove duplicates (must be sorted first)\n";
     cout << "[7] Sort the trip\n";
-    cout << "[8] Quit\n";
+    cout << "[8] Check if any of the goats are max age\n";
+    cout << "[9] Quit\n";
     cout << "Choice --> ";
     int choice;
     cin >> choice;
-    while (choice < 1 || choice > 8) {
+    while (choice < 1 || choice > 9) {
         cout << "Invalid, again --> ";
         cin >> choice;
     }
     return choice;
+}
+
+void check_max_age(list<Goat> &trip) {
+    bool isMaxAge = any_of(trip.begin(), trip.end(), [](const Goat& t){return t.age == MAX_AGE;});
+    cout << "Is there a goat who is the max age? " << (isMaxAge ? "Yes":"No") << endl << endl;
 }
 
 void remove_dupes(list<Goat> &trip) {

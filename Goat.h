@@ -31,6 +31,7 @@ public:
     friend void inc_age(list<Goat> &trip);
     friend void remove_dupes(list<Goat> &trip);
     friend void check_max_age(list<Goat> &trip);
+    friend void remove_goats_young(list<Goat> &trip);
 };
 
 #endif

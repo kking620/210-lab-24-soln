@@ -27,6 +27,8 @@ public:
     bool operator< (const Goat &other) const {
         return name < other.name;
     }
+
+    friend void inc_age(list<Goat> &trip);
 };
 
 #endif

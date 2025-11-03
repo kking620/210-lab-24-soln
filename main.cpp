@@ -16,7 +16,7 @@ int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
 void reverse_goat(list<Goat> &trip);
-void shuffle_goats(list<Goat> &trip);
+void inc_age(list<Goat> &trip);
 void display_trip(list<Goat> trip);
 void sort_trip(list<Goat> &trip);
 int main_menu();
@@ -52,7 +52,7 @@ int main() {
     
     // Goat Manager 3001 Engine
     int sel = main_menu();
-    while (sel != 11) {
+    while (sel != 7) {
         switch (sel) {
             case 1:
                 cout << "Adding a goat.\n";
@@ -67,16 +67,19 @@ int main() {
                 display_trip(trip);
                 break;
             case 4:    
-                cout << "Reverse the order of goats.\n";
+                cout << "Reversing the order of goats.\n";
                 reverse_goat(trip);
                 break;
             case 5:    
-                cout << "Randomize the order of goats.\n";
-                shuffle_goats(trip);
+                cout << "Increasing the age of the goats by 1.\n";
+                inc_age(trip);
                 break;
             case 6:    
                 cout << "Sorting the trip.\n";
                 sort_trip(trip);
+                break;
+            case 7:    
+                cout << "Quitting.\n";
                 break;
             default:
                 cout << "Invalid selection.\n";
@@ -95,13 +98,13 @@ int main_menu() {
     cout << "[2] Delete a goat\n";
     cout << "[3] List goats\n";
     cout << "[4] Reverse order of goats\n";
-    cout << "[5] Shuffle order of goats\n";
+    cout << "[5] Increase the age of the goats by 1\n";
     cout << "[6] Sort the trip\n";
     cout << "[7] Quit\n";
     cout << "Choice --> ";
     int choice;
     cin >> choice;
-    while (choice < 1 || choice > 11) {
+    while (choice < 1 || choice > 7) {
         cout << "Invalid, again --> ";
         cin >> choice;
     }
@@ -113,12 +116,8 @@ void sort_trip(list<Goat> &trip) {
     display_trip(trip);
 }
 
-void shuffle_goats(list<Goat> &trip) {
-    list<Goat> temp_trip(trip.begin(), trip.end());
-    shuffle(temp_trip.begin(), temp_trip.end(), default_random_engine());
-    trip.assign(temp_trip.begin(), temp_trip.end());
-
-    cout << "After shuffling the order of our goats: \n";
+void inc_age(list<Goat> &trip) {
+    transform(trip.begin(), trip.end(), trip.begin(), [](Goat& t) {t.age += 1; return t;});
     display_trip(trip);
 }
 

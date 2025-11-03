@@ -2,7 +2,9 @@
 #include <fstream>
 #include <iomanip>
 #include <list>
+#include <string>
 #include <random>
+#include <numeric>
 #include <algorithm>
 #include "Goat.h"
 using namespace std;
@@ -12,10 +14,10 @@ const int SZ_NAMES = 200, SZ_COLORS = 25;
 int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
-void reverse_goat(list<Goat> trip);
-void shuffle_goats(list<Goat> trip);
+void reverse_goat(list<Goat> &trip);
+void shuffle_goats(list<Goat> &trip);
 void display_trip(list<Goat> trip);
-void find_goat(list<Goat> trip);
+void sort_trip(list<Goat> &trip);
 int main_menu();
 
 int main() {
@@ -72,12 +74,8 @@ int main() {
                 shuffle_goats(trip);
                 break;
             case 6:    
-                cout << "Randomize the order of goats.\n";
-                shuffle_goats(trip);
-                break;
-            case 7:    
-                cout << "Finding a specific goat.\n";
-                shuffle_goats(trip);
+                cout << "Sorting the trip.\n";
+                sort_trip(trip);
                 break;
             default:
                 cout << "Invalid selection.\n";
@@ -97,36 +95,31 @@ int main_menu() {
     cout << "[3] List goats\n";
     cout << "[4] Reverse order of goats\n";
     cout << "[5] Shuffle order of goats\n";
-    cout << "[6] Quit\n";
+    cout << "[6] Sort the trip\n";
+    cout << "[7] Quit\n";
     cout << "Choice --> ";
     int choice;
     cin >> choice;
-    while (choice < 1 || choice > 5) {
+    while (choice < 1 || choice > 11) {
         cout << "Invalid, again --> ";
         cin >> choice;
     }
     return choice;
 }
 
-void find_goat(list<Goat> trip) {
-    string n = "";
-    cout << "Which goat would you like to find? ";
-    cin >> n;
-    cin.ignore();
-
-    cout << "Searching for " << n << "...\n";
-
-    auto it = find_if(trip.begin(), trip.end(), [](const Goat &g){return g.name == n;})
+void sort_trip(list<Goat> &trip) {
+    sort(trip.begin(), trip.end());
+    display_trip(trip);
 }
 
-void shuffle_goats(list<Goat> trip) {
+void shuffle_goats(list<Goat> &trip) {
     shuffle(trip.begin(), trip.end(), default_random_engine());
 
     cout << "After shuffling the order of our goats: \n";
     display_trip(trip);
 }
 
-void reverse_goat(list<Goat> trip) {
+void reverse_goat(list<Goat> &trip) {
     reverse(trip.begin(), trip.end());
 
     cout << "After reversing the order of our goats: \n";

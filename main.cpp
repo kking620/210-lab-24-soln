@@ -19,6 +19,7 @@ void reverse_goat(list<Goat> &trip);
 void inc_age(list<Goat> &trip);
 void remove_dupes(list<Goat> &trip);
 void remove_goats_young(list<Goat> &trip);
+void add_all_ages(list<Goat> &trip);
 void display_trip(list<Goat> trip);
 void sort_trip(list<Goat> &trip);
 int main_menu();
@@ -54,7 +55,7 @@ int main() {
     
     // Goat Manager 3001 Engine
     int sel = main_menu();
-    while (sel != 10) {
+    while (sel != 11) {
         switch (sel) {
             case 1:
                 cout << "Adding a goat.\n";
@@ -93,6 +94,10 @@ int main() {
                 remove_goats_young(trip);
                 break;
             case 10:    
+                cout << "Adding all ages together.\n";
+                add_all_ages(trip);
+                break;
+            case 11:    
                 cout << "Quitting.\n";
                 break;
             default:
@@ -117,15 +122,21 @@ int main_menu() {
     cout << "[7] Sort the trip\n";
     cout << "[8] Check if any of the goats are max age\n";
     cout << "[9] Remove goats that are too young (under 5 years old)\n";
-    cout << "[10] Quit\n";
+    cout << "[10] Calculate the total age of all goats on trip\n";
+    cout << "[11] Quit\n";
     cout << "Choice --> ";
     int choice;
     cin >> choice;
-    while (choice < 1 || choice > 10) {
+    while (choice < 1 || choice > 11) {
         cout << "Invalid, again --> ";
         cin >> choice;
     }
     return choice;
+}
+
+void add_all_ages(list<Goat> &trip) {
+    int totalAge = accumulate(trip.begin(), trip.end(), 0, [](int sum, const Goat& t){return sum + t.age;});
+    cout << "The total age of all of the goats is " << totalAge << endl;
 }
 
 void remove_goats_young(list<Goat> &trip) {

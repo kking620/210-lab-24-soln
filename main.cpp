@@ -20,6 +20,7 @@ void inc_age(list<Goat> &trip);
 void remove_dupes(list<Goat> &trip);
 void remove_goats_young(list<Goat> &trip);
 void add_all_ages(list<Goat> &trip);
+void find_goat(list<Goat> &trip);
 void display_trip(list<Goat> trip);
 void sort_trip(list<Goat> &trip);
 int main_menu();
@@ -55,7 +56,7 @@ int main() {
     
     // Goat Manager 3001 Engine
     int sel = main_menu();
-    while (sel != 11) {
+    while (sel != 12) {
         switch (sel) {
             case 1:
                 cout << "Adding a goat.\n";
@@ -98,6 +99,10 @@ int main() {
                 add_all_ages(trip);
                 break;
             case 11:    
+                cout << "Finding goat.\n";
+                find_goat(trip);
+                break;
+            case 12:    
                 cout << "Quitting.\n";
                 break;
             default:
@@ -123,15 +128,29 @@ int main_menu() {
     cout << "[8] Check if any of the goats are max age\n";
     cout << "[9] Remove goats that are too young (under 5 years old)\n";
     cout << "[10] Calculate the total age of all goats on trip\n";
-    cout << "[11] Quit\n";
+    cout << "[11] Find position of a specific goat\n";
+    cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
     cin >> choice;
-    while (choice < 1 || choice > 11) {
+    while (choice < 1 || choice > 12) {
         cout << "Invalid, again --> ";
         cin >> choice;
     }
     return choice;
+}
+
+void find_goat(list<Goat> &trip) {
+    string n = "";
+    cout << "Which goat would you like to find?\n";
+    cin >> n;
+    cin.ignore();
+
+    auto it = find_if(trip.begin(), trip.end(), [n](const Goat& t){return t.name == n;});
+    if (it != trip.end())
+        cout << it->name << " found at position " << distance(trip.begin(), it) + 1 << "." << endl << endl;
+    else
+        cout << "Goat not found.";
 }
 
 void add_all_ages(list<Goat> &trip) {

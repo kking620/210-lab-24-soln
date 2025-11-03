@@ -28,11 +28,16 @@ public:
         return name < other.name;
     }
 
+    bool operator== (const Goat &other) const {
+        return name == other.name;
+    }
+
     friend void inc_age(list<Goat> &trip);
     friend void remove_dupes(list<Goat> &trip);
     friend void check_max_age(list<Goat> &trip);
     friend void remove_goats_young(list<Goat> &trip);
     friend void add_all_ages(list<Goat> &trip);
+    friend void find_goat(list<Goat> &trip);
 };
 
 #endif

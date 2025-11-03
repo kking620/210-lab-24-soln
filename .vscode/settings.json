@@ -2,6 +2,8 @@
     "files.associations": {
         "list": "cpp",
         "xstring": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "numeric": "cpp",
+        "algorithm": "cpp"
     }
 }

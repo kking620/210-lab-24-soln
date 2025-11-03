@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <list>
+#include <tuple>
 #include <string>
 #include <random>
 #include <numeric>
@@ -108,12 +109,14 @@ int main_menu() {
 }
 
 void sort_trip(list<Goat> &trip) {
-    sort(trip.begin(), trip.end());
+    trip.sort();
     display_trip(trip);
 }
 
 void shuffle_goats(list<Goat> &trip) {
-    shuffle(trip.begin(), trip.end(), default_random_engine());
+    list<Goat> temp_trip(trip.begin(), trip.end());
+    shuffle(temp_trip.begin(), temp_trip.end(), default_random_engine());
+    trip.assign(temp_trip.begin(), temp_trip.end());
 
     cout << "After shuffling the order of our goats: \n";
     display_trip(trip);

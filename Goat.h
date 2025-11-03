@@ -32,6 +32,7 @@ public:
         return name == other.name;
     }
 
+    //setting these functions as friend so that we may access its private class variables
     friend void inc_age(list<Goat> &trip);
     friend void remove_dupes(list<Goat> &trip);
     friend void check_max_age(list<Goat> &trip);
